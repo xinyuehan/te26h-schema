@@ -69,19 +69,19 @@ for year, week in sorted(weeks):
     except Exception as ex:
         print(ex)
 
+sweden = ZoneInfo("Europe/Stockholm")
+
 for lesson in all_lessons:
 
-    sweden = ZoneInfo("Europe/Stockholm")
+    start_dt = datetime.strptime(
+        f"{lesson['date']} {lesson['start']}",
+        "%Y-%m-%d %H:%M"
+    ).replace(tzinfo=sweden)
 
-start_dt = datetime.strptime(
-    f"{lesson['date']} {lesson['start']}",
-    "%Y-%m-%d %H:%M"
-).replace(tzinfo=sweden)
-
-end_dt = datetime.strptime(
-    f"{lesson['date']} {lesson['end']}",
-    "%Y-%m-%d %H:%M"
-).replace(tzinfo=sweden)
+    end_dt = datetime.strptime(
+        f"{lesson['date']} {lesson['end']}",
+        "%Y-%m-%d %H:%M"
+    ).replace(tzinfo=sweden)
 
     event = Event()
 
