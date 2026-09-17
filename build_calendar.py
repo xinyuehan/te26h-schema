@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from datetime import timezone
 from zoneinfo import ZoneInfo
 
 from icalendar import Calendar
@@ -42,8 +43,6 @@ while d <= end_date:
 
 calendar = Calendar()
 
-calendar.add("X-WR-TIMEZONE", "Europe/Stockholm")
-
 all_lessons = []
 
 for year, week in sorted(weeks):
@@ -83,6 +82,9 @@ for lesson in all_lessons:
         "%Y-%m-%d %H:%M"
     ).replace(tzinfo=sweden)
 
+    start_dt = start_dt.astimezone(timezone.utc)
+    end_dt = end_dt.astimezone(timezone.utc)
+    
     event = Event()
 
     event.add(
